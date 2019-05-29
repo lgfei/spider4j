@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- t_website_rule表 -->
+<mapper namespace="com.lgfei.tool.spider.operate.mvcrawler.dao.MvSourceDao">
+	<!-- 查询基础sql -->
+	<sql id="query_base_sql">
+		SELECT 
+		  t.`id` AS id,
+		  t.`created_time` AS createdTime,
+		  t.`updated_time` AS updatedTime,
+		  t.`enable_flag` AS enableFlag,
+		  t.`mv_id` AS mvId,
+		  t.`website_id` AS websiteId,
+		  t.`source_id` AS sourceId,
+		  t.`source_url` AS sourceUrl,
+		  wi.`name` AS websiteName 
+		FROM
+		  `t_mv_source` t 
+		  LEFT JOIN `t_website_info` wi 
+		    ON wi.`website_id` = t.`website_id`   		  	  
+	</sql>
+	
+	<!-- 单条记录插入 -->
+	<insert id="batchInsert">
+		INSERT INTO t_mv_source (mv_id,website_id,source_id,source_url) 
+		VALUES
+		<foreach collection="list" item="vo" separator=",">
+		(
+		#{vo.mvId},
+		#{vo.websiteId},
+		#{vo.sourceId},
+		#{vo.sourceUrl}
+		)
+		</foreach>
+		;
+	</insert>
+	
+	<!-- 列表查询 -->
+	<select id="queryList" resultType="com.lgfei.tool.spider.operate.mvcrawler.model.vo.MvSourceVO">
+		<include refid="query_base_sql"></include>
+		<where>
+			<if test="null != mvId">
+				t.`mv_id` = #{mvId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 批量删除片源 -->
+	<delete id="deleteByMvIds">
+		DELETE FROM t_mv_source WHERE mv_id IN
+		<foreach collection="collection" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		;
+	</delete>
+	
+	<!-- 根据片源id删除片源 -->
+	<delete id="delete">
+		DELETE FROM t_mv_source WHERE source_id = #{sourceId}
+	</delete>
+	
+	<!-- 更新片源信息 -->
+	<update id="update">
+		UPDATE 
+		  t_mv_source t 
+		SET
+		  t.`website_id` = #{websiteId},
+		  t.`source_url` = #{sourceUrl},
+		  t.`updated_time` = NOW()
+		WHERE t.`source_id` = #{sourceId}		
+	</update>
+	
+	<!-- 新增片源信息 -->
+	<insert id="insert">
+		INSERT INTO t_mv_source (mv_id,website_id,source_id,source_url,created_time) 
+		VALUES (#{mvId},#{websiteId},#{sourceId},#{sourceUrl},NOW())	
+	</insert>
+</mapper>

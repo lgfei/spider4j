@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lgfei.tool</groupId>
+		<artifactId>spider</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>spider.test</artifactId>
+	<packaging>jar</packaging>
+	<name>spider.test</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<!-- 单元测试 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- 公用模块包 -->
+		<dependency>
+			<groupId>com.lgfei.tool</groupId>
+			<artifactId>spider.common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- crawler4j爬虫框架实现包 -->
+		<dependency>
+			<groupId>com.lgfei.tool</groupId>
+			<artifactId>spider.crawler4j</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- webmagic爬虫框架实现包 -->
+		<dependency>
+			<groupId>com.lgfei.tool</groupId>
+			<artifactId>spider.webmagic</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- 服务启动包 -->
+		<dependency>
+			<groupId>com.lgfei.tool</groupId>
+			<artifactId>spider.operate</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<finalName>spidertestservice</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>  
+					<!-- 打包忽略测试用例 -->
+			        <excludes>
+			        	<exclude>**/*Test.java</exclude>
+			        </excludes>
+			    </configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

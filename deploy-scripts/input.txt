@@ -1,0 +1,8 @@
+# 为部署服务分配的linux用户，已经提前配置好工作目录及权限
+linuxUser=root
+
+
+# 爬虫管理台   IP 启动端口 关闭端口 服务路径
+spideroperateserviceDeploy=172.18.61.63 18000 18005 /opt/myservices/spideroperateservice
+
+#####

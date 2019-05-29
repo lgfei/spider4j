@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+/*body背景色*/
+.bg-body{
+	background-color: #f1f2f3;
+	min-width:400px;
+}
+.ellipsis-text{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	max-width: 200px;
+}
+.mvname{
+	color: black;
+	padding:0px;
+	font-size:14px;
+}
+.player {
+    color: #999;
+    font-size: 85%;
+    height: 20px;
+    line-height: 20px;
+}
+/*详情页播放按钮*/
+.btn-play{
+	padding: 30px;
+}
+/*居中,居左,居右*/
+.align-c{
+	text-align: center !important;
+}
+.align-l{
+	text-align: left !important;
+}
+.align-r{
+	text-align: right !important;
+}
+/*浮左,浮右*/
+.float-l{
+	float: left !important;
+}
+.float-r{
+	float: right !important;
+}
+/*宽度百分比*/
+.w-5{
+	width: 5% !important;
+}
+.w-25{
+	width: 25% !important;
+}
+.w-70{
+	width: 70% !important;
+}
+.w-100{
+	width: 100% !important;
+}
+/*无边框*/
+.border-n{
+	border:none !important;
+}
+/*表格相关*/
+.table-fixed{
+	table-layout: fixed;
+}
+/*海报相关*/
+.poster-list{
+	max-width: 260px;
+	max-height: 400px;
+}
+.poster-detail{
+	width: 100%;
+	min-width: 130px;
+}

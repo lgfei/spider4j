@@ -1,0 +1,33 @@
+{
+  "name": "spider.show",
+  "version": "0.0.1",
+  "description": "A Node.js film site using MySql",
+  "main": "server.js",
+  "config": {
+    "port": "18001"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "https://github.com/lgfei/tools/tree/master/spider/spider.show",
+  "keywords": [
+    "Node.js",
+    "Mysql",
+    "Spider"
+  ],
+  "author": "Lgfei",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "media-typer": "^0.3.0",
+    "mime-types": "^2.1.18",
+    "setprototypeof": "^1.1.0",
+    "statuses": "^1.5.0",
+    "util-deprecate": "^1.0.2"
+  }
+}

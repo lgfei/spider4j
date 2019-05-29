@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spider</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h4>Crawler常用配置</h4>
+	crawler4j的配置文件都位于edu.uci.ics.crawler4j.crawler.CrawlConfig中，各配置属性的详细说明如下。
+	<ul>
+		<li>crawlStorageFolder：临时存储抓取来的文件的地方，相当于文件中转站。</li>
+		<li>resumableCrawling：是否重新抓取上一个异常停止/损坏的文件的开关，默认不开启。如果开启该开关，毫无疑问会降低抓取的效率。</li>
+		<li>maxDepthOfCrawling：抓取的最大深度。默认为-1，即无限深度。</li>
+		<li>maxPagesToFetch：抓取的最大页面数。默认为-1，即无限抓取。</li>
+		<li>userAgentString：抓取web服务器的用户代理。默认为“crawler4j(http://code.google.com/p/crawler4j/)”。</li>
+		<li>politenessDelay：（同一主机的两个请求间的）延迟毫秒数。默认为200。</li>
+		<li>includeHttpsPages：是否包含Https页面。默认包含。</li>
+		<li>includeBinaryContentInCrawling：是否包含二进制文件，如image，audio等。默认为不抓取。</li>
+		<li>maxConnectionsPerHost：每个主机的最大连接数，默认为100。</li>
+		<li>maxTotalConnections：主机的总共连接数，默认为100。</li>
+		<li>socketTimeout：socket超时毫秒数，默认为20000。</li>
+		<li>connectionTimeout：连接超时毫秒数，默认为30000。</li>
+		<li>maxOutgoingLinksToFollow：每个页面的最大外链数，默认为5000。</li>
+		<li>maxDownloadSize：每个页面的最大下载容量，默认1048576kb（1024M），超过的部分不会下载。</li>
+		<li>followRedirects：是否抓取重定向的页面，默认抓取。</li>
+		<li>proxyHost：代理主机地址，仅在使用代理上网时使用。</li>
+		<li>proxyPort：代理端口号。</li>
+		<li>proxyUsername：代理用户名。</li>
+		<li>proxyPassword：代理密码。</li>
+		<li>authInfos：授权用户信息。</li>
+	</ul>
+</body>
+</html>

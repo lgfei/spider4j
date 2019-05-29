@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- t_task_config表 -->
+<mapper namespace="com.lgfei.tool.spider.operate.mvcrawler.dao.TaskConfigDao">
+	<!-- 查询基础sql -->
+	<sql id="query_base_sql">
+		SELECT 
+		  t.`id` AS id,
+		  t.`created_time` AS createdTime,
+		  t.`updated_time` AS updatedTime,
+		  t.`enable_flag` AS enableFlag,
+		  t.`website_id` AS websiteId,
+		  t.`task_id` AS taskId,
+		  t.`task_name` AS taskName,
+		  t.`description` AS `description`,
+		  t.`target` AS target,
+		  t.`regex` AS `regex`,
+		  t.`mode` AS `mode`,
+		  t.`target_area` AS targetArea,
+		  t.`min_pagenum` AS minPagenum,
+		  t.`max_pagenum` AS maxPagenum,
+		  t.`page_size` AS pageSize,
+		  t.`run_status` AS runStatus,
+		  t.`specials` AS specials
+		FROM
+		  t_task_config t 
+	</sql>
+	
+	<!-- 单个查询 -->
+	<select id="query" resultType="com.lgfei.tool.spider.operate.mvcrawler.model.vo.TaskConfigVO">
+		<include refid="query_base_sql"></include>
+		WHERE t.`task_id` = #{taskId}
+	</select>
+	
+	<!-- 列表查询 -->
+	<select id="queryList" resultType="com.lgfei.tool.spider.operate.mvcrawler.model.vo.TaskConfigVO">
+		<include refid="query_base_sql"></include>
+		<where>
+			<if test="taskName != null">
+				AND t.`task_name` = #{taskName}
+			</if>
+			<if test="target != null">
+				AND t.`target` = #{target}
+			</if>
+			<if test="runStatus != null">
+				AND t.`run_status` = #{runStatus}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryPageList" resultType="com.lgfei.tool.spider.operate.mvcrawler.model.vo.TaskConfigVO">
+		<include refid="query_base_sql"></include>
+		<where>
+			<if test="param.taskName != null">
+				AND t.`task_name` LIKE CONCAT('%',#{param.taskName},'%')
+			</if>
+		</where>
+	</select>	
+	
+	<!-- 单个插入 -->
+	<insert id="insert">
+	    INSERT INTO t_task_config 
+	    (website_id,task_id,`task_name`,description,target,`regex`,`mode`,target_area,min_pagenum,max_pagenum,page_size,specials) 
+		VALUES
+		(
+		#{websiteId},
+		#{taskId},
+		#{taskName},
+		#{description},
+		#{target},
+		#{regex},
+		#{mode},
+		#{targetArea},
+		#{minPagenum},
+		#{maxPagenum},
+		#{pageSize},
+		#{specials}
+		)
+	</insert>
+	
+	<!-- 批量删除 -->
+	<delete id="batchDelete">
+		DELETE FROM t_task_config WHERE id IN
+		<foreach collection="list" item="vo" open="(" separator="," close=")">
+		#{vo.id}
+		</foreach>
+		;
+	</delete>
+	
+	<!-- 单个更新 -->
+	<update id="update">
+		UPDATE 
+		  t_task_config 
+		SET
+		  `website_id` = #{websiteId},
+		  `task_name` = #{taskName},
+		  description = #{description},
+		  target = #{target},
+		  `regex` = #{regex},
+		  `mode` = #{mode},
+		  target_area = #{targetArea},
+		  min_pagenum = #{minPagenum},
+		  max_pagenum = #{maxPagenum},
+		  page_size = #{pageSize},
+		  specials = #{specials},
+		  updated_time = NOW()
+		WHERE task_id = #{taskId}
+	</update>
+	
+	<!-- 修改启动状态 -->
+	<update id="updateRunStatus">
+		UPDATE 
+		  t_task_config 
+		SET
+		  run_status = #{runStatus},
+		  updated_time = NOW()
+		WHERE task_id = #{taskId}
+	</update>
+	
+	<!-- 初始化运行状态 -->
+	<update id="initRunStatus">
+		UPDATE 
+		  t_task_config t 
+		SET
+		  t.`run_status` = 5 
+		WHERE t.`run_status` IN (2, 3, 4) 
+	</update>
+	
+	<!-- 查询多个网站下的所有任务 -->
+	<select id="queryListByWebsitIds" resultType="com.lgfei.tool.spider.operate.mvcrawler.model.vo.TaskConfigVO">
+		<include refid="query_base_sql"></include>
+		WHERE website_id IN
+		<foreach collection="collection" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		;
+	</select>
+</mapper>

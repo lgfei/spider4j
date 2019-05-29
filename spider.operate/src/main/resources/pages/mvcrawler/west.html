@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>West</title>
+<!-- 引入css -->
+<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css"/>
+<!-- 特性css -->
+<link rel="stylesheet" type="text/css" href="../css/mystyle.css"/>
+<!-- 引入js -->
+<script type="text/javascript" src="../jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div class="easyui-accordion" data-options="multiple:true">
+	<div title="爬虫源管理" style="padding:10px;">
+		<ul>
+			<li>
+				<a href="javascript:openPage('/website/listpage','websitelist')">网站管理</a>
+			</li>
+			<li>
+				<a href="javascript:openPage('/task/listpage','tasklist')">任务管理</a>
+			</li>
+		</ul>
+	</div>
+	<div title="影片管理" style="padding:10px;">
+		<ul>
+			<li>
+				<a href="javascript:openPage('/mv/listpage','mvlist')">影片管理</a>
+			</li>
+			<li>
+				<a href="javascript:openPage('/cache/listpage','cachelist')">缓存管理</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+	function openPage(uri,title){
+		parent.addPanel(uri,title);
+	}
+</script>
+</body>
+</html>

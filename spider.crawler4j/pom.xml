@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lgfei.tool</groupId>
+		<artifactId>spider</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>spider.crawler4j</artifactId>
+	<name>spider.crawler4j</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<!-- crawler4j -->
+		<dependency>
+			<groupId>edu.uci.ics</groupId>
+			<artifactId>crawler4j</artifactId>
+			<version>4.3</version>
+		</dependency>
+		
+	</dependencies>
+</project>

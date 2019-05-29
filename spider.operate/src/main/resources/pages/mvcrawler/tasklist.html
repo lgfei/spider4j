@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Website List</title>
+<!-- 引入css -->
+<link rel="stylesheet" type="text/css" href="../../easyui/themes/default/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="../../easyui/themes/icon.css"/>
+<!-- 特性css -->
+<link rel="stylesheet" type="text/css" href="../../css/mystyle.css"/>
+<!-- 引入js -->
+<script type="text/javascript" src="../../jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../easyui/locale/easyui-lang-zh_CN.js"></script>
+<!-- 项目js -->
+<script type="text/javascript" src="../../js/operate.constants.js"></script>
+<script type="text/javascript" src="../../js/operate.utils.js"></script>
+<script type="text/javascript" src="../../js/mvcrawler/tasklist.js"></script>
+<script type="text/javascript" src="../../js/mvcrawler/rulelist.js"></script>
+</head>
+<body>
+<!-- 网站任务列表区域 -->
+<table id="tableTask"  class="easyui-datagrid" toolbar="#divTaskTb"></table>
+<div id="divTaskTb" class="datagrid-toolbar">
+	<form id="formQueryTask" method="post">
+		<label for="taskName">名称:</label>
+		<input type="text" id="inputTaskName" name="taskName" class="easyui-validatebox"/>
+		<a href="javascript:search()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+		<a href="javascript:clear()" class="easyui-linkbutton">清空</a>
+	</form>
+	<hr/>
+	<a href="javascript:add()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>  
+	<a href="javascript:del()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+</div>
+
+<!-- 新增面板区域 -->
+<div id="divAddDialog">
+	<form id="formAdd" method="post">
+		<table>
+			<tbody>
+			<tr>
+				<td>
+					<label for="websiteId"><span class="red-star">*</span>网站:</label>
+				</td>
+				<td>
+					<input class="easyui-combobox w-360" name="websiteId" 
+						data-options="valueField:'websiteId',textField:'name',data:getWebsites(),panelHeight:100"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="taskName"><span class="red-star">*</span>任务名称:</label>
+				</td>
+				<td>
+					<input class="easyui-validatebox w-360" type="text" name="taskName" data-options="required:true" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="target"><span class="red-star">*</span>目标:</label>
+				</td>
+				<td>
+					<input class="easyui-textbox w-360" type="text" name="target" data-options="required:true,multiline:true" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="regex"><span class="red-star">*</span>正则:</label>
+				</td>
+				<td>
+					<input class="easyui-textbox w-360" type="text" name="regex" data-options="required:true,multiline:true" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="mode"><span class="red-star">*</span>模式:</label>
+				</td>
+				<td>
+					<select id="selectAddMode" class="easyui-combobox w-360" name="mode" data-options="panelHeight:50">
+				        <option value="1" selected="selected">详情</option>
+				        <option value="2">列表</option>
+				    </select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="targetArea"><span class="red-star">*</span>目标区域:</label>
+				</td>
+				<td>
+					<input class="easyui-textbox w-360" type="text" name="targetArea" data-options="required:true,multiline:true"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="minPagenum"><span class="red-star">*</span>最小页码:</label>
+				</td>
+				<td>
+					<input class="easyui-numberbox w-360" type="text" name="minPagenum" data-options="required:true,min:1"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="maxPagenum"><span class="red-star">*</span>最大页码:</label>
+				</td>
+				<td>
+					<input class="easyui-numberbox w-360" type="text" name="maxPagenum"  data-options="required:true,min:1"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="pageSize">每页内容数:</label>
+				</td>
+				<td>
+					<input class="easyui-numberbox w-360" type="text" name="pageSize"  data-options="min:1"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="specials">特例:</label>
+				</td>
+				<td>
+					<input class="easyui-textbox w-360" type="text" name="specials" data-options="multiline:true"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="description">描述:</label>
+				</td>
+				<td>
+					<input class="easyui-textbox w-360" type="text" name="description" data-options="multiline:true"/>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+
+<!-- 编辑面板区域 -->
+<div id="divEditDialog">
+	<div id="divContent" class="easyui-accordion" data-options="multiple:true">	
+		<div title="基本配置">
+			<form id="formEdit" method="post">
+				<table id="tableEdit">
+					<tbody>
+					<tr>
+						<td>
+							<label for="websiteId"><span class="red-star">*</span>网站:</label>
+						</td>
+						<td>
+							<input class="easyui-combobox w-360" name="websiteId" 
+								data-options="valueField:'websiteId',textField:'name',data:getWebsites(),panelHeight:100"/>
+						</td>
+						<td>
+							<label for="taskName"><span class="red-star">*</span>任务名称:</label>
+						</td>
+						<td>
+							<input class="easyui-validatebox" type="text" name="taskId" data-options="required:true" hidden="true"/>
+							<input class="easyui-validatebox w-360" type="text" name="taskName" data-options="required:true" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="mode"><span class="red-star">*</span>模式:</label>
+						</td>
+						<td>
+							<select id="selectAddMode" class="easyui-combobox w-360" name="mode" data-options="panelHeight:50">
+						        <option value="1" selected="selected">详情</option>
+						        <option value="2">列表</option>
+						    </select>
+						</td>
+						<td>
+							<label for="minPagenum"><span class="red-star">*</span>最小页码:</label>
+						</td>
+						<td>
+							<input class="easyui-numberbox w-360" type="text" name="minPagenum" data-options="required:true,min:1"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="pageSize">每页内容数:</label>
+						</td>
+						<td>
+							<input class="easyui-numberbox w-360" type="text" name="pageSize"  data-options="min:1"/>
+						</td>
+						<td>
+							<label for="maxPagenum"><span class="red-star">*</span>最大页码:</label>
+						</td>
+						<td>
+							<input class="easyui-numberbox w-360" type="text" name="maxPagenum"  data-options="required:true,min:1"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="target"><span class="red-star">*</span>目标:</label>
+						</td>
+						<td>
+							<input class="easyui-textbox w-360" type="text" name="target" data-options="required:true,multiline:true" />
+						</td>
+						<td>
+							<label for="regex"><span class="red-star">*</span>正则:</label>
+						</td>
+						<td>
+							<input class="easyui-textbox w-360" type="text" name="regex" data-options="required:true,multiline:true" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="targetArea"><span class="red-star">*</span>目标区域:</label>
+						</td>
+						<td>
+							<input class="easyui-textbox w-360" type="text" name="targetArea" data-options="required:true,multiline:true"/>
+						</td>
+						<td>
+							<label for="specials">特例:</label>
+						</td>
+						<td>
+							<input class="easyui-textbox w-360" type="text" name="specials" data-options="multiline:true"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="description">描述:</label>
+						</td>
+						<td>
+							<input class="easyui-textbox w-360" type="text" name="description" data-options="multiline:true"/>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div title="内容提取规则配置">
+			<table id="tableRule"  class="easyui-datagrid" toolbar="#divRuleTb"></table>
+			<div id="divRuleTb" class="datagrid-toolbar">
+				<a href="javascript:addRule()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>  
+				<a href="javascript:delRule()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+				<a href="javascript:cancelEdit()" class="easyui-linkbutton" iconCls="icon-undo" plain="true">撤销</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

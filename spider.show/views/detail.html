@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lgfei Film Site</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 解决网页图片403无法显示的问题  -->
+<meta name="referrer" content="no-referrer"/>
+<!-- jQuery -->
+<script src="/spidershowservice/lib/jquery/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="/spidershowservice/lib/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="/spidershowservice/lib/bootstrap/popper.min.js"></script>
+<script src="/spidershowservice/lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- 项目样式 -->
+<link rel="stylesheet" href="/spidershowservice/css/style.css">
+<!-- 项目js -->
+<script src="/spidershowservice/js/detail.js"></script>
+</head>
+<body class="bg-body">
+<!-- 导航栏 -->
+<iframe frameborder="0" scrolling="no" marginwidth="0" marginheight="0" height="100%" width="100%" src="/spidershowservice/head.html"></iframe>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<!-- 面包屑 -->
+					<ol class="breadcrumb" style="background-color:white;">
+					    <li><a href="/spidershowservice/index.html">首页</a></li>
+					    <li><a href="/spidershowservice/list.html">电影</a></li>
+					    <li class="active" id="idBreadcrumbMvName"></li>
+					</ol>
+				</div>
+				<div class="panel-body">
+					<!-- 影片详情 -->
+					<table class="table table-responsive-md">
+						<tbody>
+						<!-- 影片信息 -->
+						<tr>
+						<td class="w-25">
+							<img class="poster-detail" id="idPosterImg" src="">
+						</td>
+						<td>
+							<h3 id="idMvName"></h3>
+							<p class="text-left">导演：<span id="idDirector"></span></p>
+							<p class="text-left">主演：<span id="idPlayer"></span></p>
+							<p class="text-left">日期：<span id="idShowDate"></span></p>
+							<p class="text-left">剧情：<span id="idDesc"></span></p>
+						</td>
+						</tr>
+						<!-- 播放源 -->
+						<tr>
+						<td colspan="2">
+							<ul id="mvSourcesTab" class="nav nav-tabs"></ul>
+							<div id="mvSourcesTabContent" class="tab-content"></div>				
+						</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div>
+				
+</body>
+</html>

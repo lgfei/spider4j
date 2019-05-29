@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- t_task_rule表 -->
+<mapper namespace="com.lgfei.tool.spider.operate.mvcrawler.dao.TaskRuleDao">
+	<!-- 查询基础sql -->
+	<sql id="query_base_sql">
+		SELECT 
+		  t.`id` AS id,
+		  t.`created_time` AS createdTime,
+		  t.`updated_time` AS updatedTime,
+		  t.`enable_flag` AS enableFlag,
+		  t.`task_id` AS taskId,
+		  t.`field_name` AS fieldName,
+		  t.`description` AS `description`,
+		  t.`rule` AS rule,
+		  t.`type` AS `type`,
+		  t.`item_rule` AS `itemRule`,
+		  t.`allow_blank` AS allowBlank,
+		  t.`condition` AS `condition`,
+		  t.`match_value` AS `matchValue`
+		FROM
+		  t_task_rule t 		  
+	</sql>
+	
+	<!-- 列表查询 -->
+	<select id="queryList" resultType="com.lgfei.tool.spider.operate.mvcrawler.model.vo.TaskRuleVO">
+		<include refid="query_base_sql"></include>
+		WHERE t.task_id = #{taskId}
+		<if test="null != enableFlag">
+			AND t.enable_flag = #{enableFlag}
+		</if>
+	</select>	
+	
+	<!-- 批量插入 -->
+	<insert id="batchInsert">
+	    INSERT INTO t_task_rule 
+	    (task_id,field_name,description,`rule`,`type`,item_rule,allow_blank,`condition`,match_value) 
+		VALUES
+		<foreach collection="list" item="vo" separator=",">
+		(
+		#{vo.taskId},
+		#{vo.fieldName},
+		#{vo.description},
+		#{vo.rule},
+		#{vo.type},
+		#{vo.itemRule},
+		#{vo.allowBlank},
+		#{vo.condition},
+		#{vo.matchValue}
+		)
+		</foreach>
+		;
+	</insert>
+	
+	<!-- 批量删除 -->
+	<delete id="batchDelete">
+		DELETE FROM t_task_rule WHERE id IN
+		<foreach collection="list" item="vo" open="(" separator="," close=")">
+		#{vo.id}
+		</foreach>
+		;
+	</delete>
+	
+	<!-- 批量更新 -->
+	<update id="batchUpdate">
+		<foreach collection="list" item="vo" separator=";">
+		UPDATE 
+		  t_task_rule 
+		SET
+		  <!-- enable_flag = #{vo.enableFlag}, -->
+		  field_name = #{vo.fieldName},
+		  description = #{vo.description},
+		  `rule` = #{vo.rule},
+		  `type` = #{vo.type},
+		  `item_rule` = #{vo.itemRule},
+		  `allow_blank` = #{vo.allowBlank},
+		  `condition` = #{vo.condition},
+		  `match_value` = #{vo.matchValue},
+		  updated_time = NOW()
+		WHERE id = #{vo.id}
+		</foreach>
+	</update>
+	
+	<!-- 根据taskId批量删除 -->
+	<delete id="deleteByTaskIds">
+		DELETE FROM t_task_rule WHERE task_id IN
+		<foreach collection="collection" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		;
+	</delete>
+	
+	<!-- 修改可用状态 -->
+	<update id="updateEnableFlag">
+		UPDATE 
+		  t_task_rule 
+		SET
+		  enable_flag = #{enableFlag},
+		  updated_time = NOW()
+		WHERE id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Website List</title>
+<!-- 解决网页图片403无法显示的问题  -->
+<meta name="referrer" content="no-referrer"/>
+<!-- 引入css -->
+<link rel="stylesheet" type="text/css" href="../../easyui/themes/default/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="../../easyui/themes/icon.css"/>
+<!-- 特性css -->
+<link rel="stylesheet" type="text/css" href="../../css/mystyle.css"/>
+<!-- 引入js -->
+<script type="text/javascript" src="../../jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../easyui/locale/easyui-lang-zh_CN.js"></script>
+<!-- 项目js -->
+<script type="text/javascript" src="../../js/operate.constants.js"></script>
+<script type="text/javascript" src="../../js/operate.utils.js"></script>
+<script type="text/javascript" src="../../js/mvcrawler/cachelist.js"></script>
+</head>
+<body>
+<!-- 缓存列表区域 -->
+<table id="tableMvCache"  class="easyui-datagrid" toolbar="#divMvCacheTb"></table>
+<div id="divMvCacheTb" class="datagrid-toolbar">
+	<form id="formQueryMvCache" method="post">
+		<label for="mvId">ID:</label>
+		<input type="text" id="inputMvId" name="mvId" class="easyui-validatebox"/>
+		<label for="mvName">名称:</label>
+		<input type="text" id="inputMvName" name="mvName" class="easyui-validatebox"/>
+		<a href="javascript:search()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+		<a href="javascript:clear()" class="easyui-linkbutton">清空</a>
+		<a href="javascript:sync('all')" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">全部同步</a>
+		<a href="javascript:del('all')" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">全部删除</a>
+	</form>
+	<hr/>
+	<a href="javascript:sync()" class="easyui-linkbutton" iconCls="icon-reload" plain="true">同步</a>
+	<a href="javascript:del()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+</div>
+</body>
+</html>
